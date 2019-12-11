@@ -9,13 +9,13 @@ function parseVersion(version) {
 }
 
 function parseHeader(header) {
-    const values = header.split();
+    const values = header.split(' ');
 
     const parsedHeader = {
-        'width': values[0],
-        'height': values[1],
-        'numColor': values[2],
-        'pixelsPerChar': values[3],
+        'width': parseInt(values[0]),
+        'height': parseInt(values[1]),
+        'numColor': parseInt(values[2]),
+        'pixelsPerChar': parseInt(values[3]),
     };
 
     Object.keys(parseHeader).forEach((k, v) => {
@@ -46,6 +46,7 @@ function parseCharColor(charColor) {
 }
 
 function parseCharsColors(colors) {
+    // TODO: what about repeated characters?
     const colorsParsed = colors.split('\n');
 
     let charColors = [];
@@ -78,7 +79,34 @@ function parsePixmap(pixmap) {
     return matrix;
 }
 
-module.exports.parseVersion = parseVersion;
-module.exports.parseHeader = parseHeader;
-module.exports.parseCharsColors = parseCharsColors;
-module.exports.parsePixmap = parsePixmap;
+function parseXPM(xpm) {
+    const lines = xpm.split('\n');
+    let version;
+    let header;
+    let charColors;
+    let pixmap;
+
+    try {
+        version = parseVersion(lines[0]);
+        header = parseHeader(lines[1]);
+
+        // takes the char-color definition lines using 2 as offset (from version and header lines)
+        const cc = lines.slice(2, header.numColor + 2);
+        charColors = parseCharsColors(cc.join('\n'));
+
+        // takes the rest of the file
+        const pm = lines.slice(header.numColor + 2, lines.length);
+        pixmap = parsePixmap(pm.join('\n'));
+    } catch (error) {
+        return error;
+    }
+
+    return {
+        'version': version,
+        'header': header,
+        'charColors': charColors,
+        'pixmap': pixmap
+    }
+}
+
+module.exports.parseXPM = parseXPM;
