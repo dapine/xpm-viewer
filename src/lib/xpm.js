@@ -31,9 +31,9 @@ function parseCharColor(charColor) {
     const charColorParsed = charColor.split(/\s+c\s+/);
 
     const cc = {
-        'char': charColorParsed[0],
+        'char': charColorParsed[0].trim() || ' ',
         // TODO: parse HEX color
-        'color': charColorParsed[1],
+        'color': charColorParsed[1].trim(),
     };
 
     Object.keys(cc).forEach((k, v) => {
