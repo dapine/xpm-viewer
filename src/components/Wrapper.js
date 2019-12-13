@@ -31,8 +31,8 @@ class Wrapper extends Component {
         const wrapperStyle = {
             display: 'grid',
             gridGap: '0px',
-            gridTemplateColumns: `repeat(${this.props.width}, ${this.props.pixelSize})`,
-            gridTemplateRows: `repeat(${this.props.height}, ${this.props.pixelSize})`,
+            gridTemplateColumns: `repeat(${this.props.width}, ${this.props.pixelSize * this.props.charsPerPixel}px)`,
+            gridTemplateRows: `repeat(${this.props.height}, ${this.props.pixelSize}px)`,
         }
 
         return (

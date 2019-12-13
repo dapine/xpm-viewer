@@ -15,7 +15,7 @@ function parseHeader(header) {
         'width': parseInt(values[0]),
         'height': parseInt(values[1]),
         'numColor': parseInt(values[2]),
-        'pixelsPerChar': parseInt(values[3]),
+        'charsPerPixel': parseInt(values[3]),
     };
 
     Object.keys(parseHeader).forEach((k, v) => {
