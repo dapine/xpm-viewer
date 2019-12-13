@@ -33,7 +33,7 @@ function parseCharColor(charColor) {
     const cc = {
         'char': charColorParsed[0].trim() || ' ',
         // TODO: parse HEX color
-        'color': charColorParsed[1].trim(),
+        'color': charColorParsed[1].trim() === 'None' ? 'rgba(0,0,0,0)' : charColorParsed[1].trim(),
     };
 
     Object.keys(cc).forEach((k, v) => {
