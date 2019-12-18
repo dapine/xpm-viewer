@@ -3,6 +3,8 @@ import { parseXPM } from '../lib/xpm';
 
 import Wrapper from './Wrapper';
 
+import '../App.css';
+
 class Xpm extends Component {
     constructor(props) {
         const empty = {
@@ -35,7 +37,11 @@ class Xpm extends Component {
 
     render() {
         if (this.state.error) {
-          return <h1>{this.state.error.toString()}</h1>
+          return (
+            <div className="error">
+              <h1>{this.state.error.toString()}</h1>
+            </div>
+          )
         }
 
         return (
