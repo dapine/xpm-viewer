@@ -24,11 +24,20 @@ class Xpm extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.xpm != this.props.xpm)
+        if (prevProps.xpm !== this.props.xpm) {
+          try {
             this.setState({xpm: this.getXpm(this.props.xpm)});
+          } catch (err) {
+            this.setState({ error: err });
+          }
+        }
     }
 
     render() {
+        if (this.state.error) {
+          return <h1>{this.state.error.toString()}</h1>
+        }
+
         return (
             <Wrapper pixelSize={this.state.pixelSize} charsPerPixel={this.state.xpm.header.charsPerPixel}
                 width={this.state.xpm.header.width} height={this.state.xpm.header.height}
